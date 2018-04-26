@@ -96,7 +96,7 @@ params = {
  'objective': 'binary',
  'metric': {'l2', 'auc'},
  'num_leaves': 31,
- 'learning_rate': 0.15,
+ 'learning_rate': 0.1,
  'feature_fraction': 0.9,
  'bagging_fraction': 0.8,
  'bagging_freq': 5,
@@ -105,7 +105,7 @@ params = {
 print('Start training...')
 # train
 # gbm = lgb.train(params, lgb_train, num_boost_round=500, valid_sets=lgb_eval, early_stopping_rounds=20)
-gbm = lgb.train(params, lgb_train, num_boost_round=200, valid_sets=lgb_eval)
+gbm = lgb.train(params, lgb_train, num_boost_round=300, valid_sets=lgb_eval)
 print('Save model...')
 # save model to file
 gbm.save_model('model.txt')
