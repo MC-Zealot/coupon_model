@@ -84,47 +84,52 @@ df=DataFrame(train_x.toarray())#
 df_test=DataFrame(test_x.toarray())
 
 # df_test.to_csv(p+"df_test")
-df_test.to_csv(p+"df_test_without_new_user")
-lgb_train = lgb.Dataset(df, train_y)
-lgb_eval = lgb.Dataset(df_test, test_y, reference=lgb_train)
+# df_test.to_csv(p+"df_test_without_new_user")
 
 
-# specify your configurations as a dict
-params = {
- 'task': 'train',
- 'boosting_type': 'gbdt',
- 'objective': 'binary',
- 'metric': {'l2', 'auc'},
- 'num_leaves': 31,
- 'learning_rate': 0.1,
- 'feature_fraction': 0.9,
- 'bagging_fraction': 0.8,
- 'bagging_freq': 5,
- 'verbose': 0
-}
-print('Start training...')
-# train
-# gbm = lgb.train(params, lgb_train, num_boost_round=500, valid_sets=lgb_eval, early_stopping_rounds=20)
-gbm = lgb.train(params, lgb_train, num_boost_round=300, valid_sets=lgb_eval)
-print('Save model...')
-# save model to file
-gbm.save_model('model.txt')
-print('Start predicting...')
-# predict
-y_pred = gbm.predict(df_test, num_iteration=gbm.best_iteration)
-# eval
-print(y_pred)
-print('The roc of prediction is:', roc_auc_score(test_y, y_pred) )
-print('The log_loss is:', log_loss(test_y, y_pred) )
-# print('The accuracy_score is:', accuracy_score(test_y, y_pred) )
-# print('The recall_score is:', recall_score(test_y, y_pred, average='micro') )
-# print('The f1_score is:', f1_score(test_y, y_pred,average='weighted') )
-print('Dump model to JSON...')
-# dump model to json (and save to file)
-model_json = gbm.dump_model()
-with open('model.json', 'w+') as f:
-    json.dump(model_json, f, indent=4)
-print('Feature names:', gbm.feature_name())
-print('Calculate feature importances...')
-# feature importances
-print('Feature importances:', list(gbm.feature_importance()))
+def lightGBM():
+    lgb_train = lgb.Dataset(df, train_y)
+    lgb_eval = lgb.Dataset(df_test, test_y, reference=lgb_train)
+
+
+    # specify your configurations as a dict
+    params = {
+     'task': 'train',
+     'boosting_type': 'gbdt',
+     'objective': 'binary',
+     'metric': {'l2', 'auc'},
+     'num_leaves': 31,
+     'learning_rate': 0.15,
+     'feature_fraction': 0.9,
+     'bagging_fraction': 0.8,
+     'bagging_freq': 5,
+     'verbose': 0
+    }
+    print('Start training...')
+    # train
+    # gbm = lgb.train(params, lgb_train, num_boost_round=500, valid_sets=lgb_eval, early_stopping_rounds=20)
+    gbm = lgb.train(params, lgb_train, num_boost_round=180, valid_sets=lgb_eval)
+    print('Save model...')
+    # save model to file
+    gbm.save_model('model.txt')
+    print('Start predicting...')
+    # predict
+    y_pred = gbm.predict(df_test, num_iteration=gbm.best_iteration)
+    # eval
+    print(y_pred)
+    print('The roc of prediction is:', roc_auc_score(test_y, y_pred) )
+    print('The log_loss is:', log_loss(test_y, y_pred) )
+    # print('The accuracy_score is:', accuracy_score(test_y, y_pred) )
+    # print('The recall_score is:', recall_score(test_y, y_pred, average='micro') )
+    # print('The f1_score is:', f1_score(test_y, y_pred,average='weighted') )
+    print('Dump model to JSON...')
+    # dump model to json (and save to file)
+    model_json = gbm.dump_model()
+    with open('model.json', 'w+') as f:
+        json.dump(model_json, f, indent=4)
+    print('Feature names:', gbm.feature_name())
+    print('Calculate feature importances...')
+    # feature importances
+    print('Feature importances:', list(gbm.feature_importance()))
+
+lightGBM()
