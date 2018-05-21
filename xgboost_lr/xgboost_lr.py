@@ -141,7 +141,7 @@ def xgboost_lr_train(xgbfeaturefile,X_train_origin, y_train_origin, X_test_origi
     lr.fit(X_train_ext, y_train)
     # lr.fit(X_train_ext, y_train,eval_metric='auc',eval_set=eval_set,verbose=True)
     joblib.dump(lr, 'lr_ext.m')
-    # 预测及AUC评测
+    # 预测及AUC评测a
     y_pred_test = lr.predict_proba(X_test_ext)[:, 1]
     lr_test_auc = roc_auc_score(y_test, y_pred_test)
     util.logger.info('基于组合特征的LR AUC: %.5f' % lr_test_auc)
