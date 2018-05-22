@@ -80,16 +80,16 @@ for feature in one_hot_feature:
     train_x = sparse.hstack((train_x, train[feature].apply(float).values.reshape(-1, 1)))
     test_x = sparse.hstack((test_x, test[feature].apply(float).values.reshape(-1, 1)))
 
-df=DataFrame(train_x.toarray())#
-df_test=DataFrame(test_x.toarray())
+# train_x_df=DataFrame(train_x.toarray())#
+# df_test=DataFrame(test_x.toarray())
 
 # df_test.to_csv(p+"df_test")
 # df_test.to_csv(p+"df_test_without_new_user")
 
 
 def lightGBM():
-    lgb_train = lgb.Dataset(df, train_y)
-    lgb_eval = lgb.Dataset(df_test, test_y, reference=lgb_train)
+    lgb_train = lgb.Dataset(train_x, train_y)
+    lgb_eval = lgb.Dataset(test_x, test_y, reference=lgb_train)
 
 
     # specify your configurations as a dict
@@ -114,7 +114,7 @@ def lightGBM():
     gbm.save_model('model.txt')
     print('Start predicting...')
     # predict
-    y_pred = gbm.predict(df_test, num_iteration=gbm.best_iteration)
+    y_pred = gbm.predict(test_x, num_iteration=gbm.best_iteration)
     # eval
     print(y_pred)
     print('The roc of prediction is:', roc_auc_score(test_y, y_pred) )

@@ -1,0 +1,305 @@
+/Users/Zealot/anaconda/bin/python /Users/Zealot/PycharmProjects/coupon_model/xgboost_lr/xgboost_lr.py
+2018-05-22 03:11:12,458 INFO xgboost_lr.py[line:204] start..
+2018-05-22 03:11:29,280 INFO xgboost_lr.py[line:176]
+
+2018-05-22 03:11:29,476 INFO xgboost_lr.py[line:177]                  id           uid            man           jian    is_new  \
+count  1.072920e+05  1.072920e+05  107292.000000  107292.000000  107292.0
+mean   2.371008e+07  4.406105e+09      30.717547       6.276321       0.0
+std    3.831578e+04  1.761465e+09     283.591830      35.559656       0.0
+min    2.363083e+07  2.423820e+07       0.000000       1.000000       0.0
+25%    2.367988e+07  2.674674e+09       5.000000       2.000000       0.0
+50%    2.370744e+07  5.247174e+09      10.000000       3.000000       0.0
+75%    2.373502e+07  5.948676e+09      15.000000       6.000000       0.0
+max    2.382812e+07  6.532487e+09   32000.000000    4200.000000       0.0
+
+       get_week_day
+count      107292.0
+mean            7.0
+std             0.0
+min             7.0
+25%             7.0
+50%             7.0
+75%             7.0
+max             7.0
+{0: 2440330, 1: 40343}
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/preprocessing/label.py:108: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+/Users/Zealot/PycharmProjects/coupon_model/xgboost_lr/xgboost_lr.py:194: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  train[feature] = le.transform(train[feature])
+/Users/Zealot/PycharmProjects/coupon_model/xgboost_lr/xgboost_lr.py:196: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  test[feature] = le.transform(test[feature])
+2018-05-22 03:11:42,004 INFO xgboost_lr.py[line:207] ['train x len: ', 2480673]
+2018-05-22 03:11:42,004 INFO xgboost_lr.py[line:208] ['test x len: ', 107292]
+2018-05-22 03:11:42,004 INFO xgboost_lr.py[line:209] xgboost..
+[0]	validation_0-auc:0.610922
+[1]	validation_0-auc:0.613695
+[2]	validation_0-auc:0.630057
+[3]	validation_0-auc:0.634725
+[4]	validation_0-auc:0.642272
+[5]	validation_0-auc:0.65914
+[6]	validation_0-auc:0.655827
+[7]	validation_0-auc:0.665272
+[8]	validation_0-auc:0.667084
+[9]	validation_0-auc:0.676661
+[10]	validation_0-auc:0.67347
+[11]	validation_0-auc:0.676995
+[12]	validation_0-auc:0.675888
+[13]	validation_0-auc:0.666305
+[14]	validation_0-auc:0.669172
+[15]	validation_0-auc:0.657715
+[16]	validation_0-auc:0.652352
+[17]	validation_0-auc:0.651886
+[18]	validation_0-auc:0.650906
+[19]	validation_0-auc:0.664236
+[20]	validation_0-auc:0.663183
+[21]	validation_0-auc:0.66991
+[22]	validation_0-auc:0.676078
+[23]	validation_0-auc:0.668118
+[24]	validation_0-auc:0.670999
+[25]	validation_0-auc:0.671376
+[26]	validation_0-auc:0.708119
+[27]	validation_0-auc:0.726351
+[28]	validation_0-auc:0.714227
+[29]	validation_0-auc:0.711784
+2018-05-22 03:12:25,459 INFO xgboost_lr.py[line:36] xgboost test auc: 0.71178
+2018-05-22 03:12:37,414 INFO xgboost_lr.py[line:58] Transform features genenrated by xgboost...
+2018-05-22 03:13:29,136 INFO xgboost_lr.py[line:76] Write xgboost learned features to file ...
+2018-05-22 03:15:55,614 INFO xgboost_lr.py[line:211] lr..
+[LibLinear]iter   1  #CD cycles 1
+iter   2  #CD cycles 1
+iter   3  #CD cycles 3
+iter   4  #CD cycles 2
+iter   5  #CD cycles 3
+iter   6  #CD cycles 2
+iter   7  #CD cycles 2
+iter   8  #CD cycles 3
+iter   9  #CD cycles 2
+iter  10  #CD cycles 1
+iter  11  #CD cycles 2
+iter  12  #CD cycles 1
+iter  13  #CD cycles 1
+iter  14  #CD cycles 1
+iter  15  #CD cycles 23
+iter  16  #CD cycles 6
+iter  17  #CD cycles 2
+iter  18  #CD cycles 2
+iter  19  #CD cycles 1
+iter  20  #CD cycles 11
+iter  21  #CD cycles 2
+iter  22  #CD cycles 1
+iter  23  #CD cycles 7
+iter  24  #CD cycles 11
+iter  25  #CD cycles 5
+iter  26  #CD cycles 4
+iter  27  #CD cycles 2
+iter  28  #CD cycles 1
+=========================
+optimization finished, #iter = 28
+Objective value = 12989.302888
+#nonzeros/#features = 10/10
+2018-05-22 03:17:50,832 INFO xgboost_lr.py[line:112] 基于原有特征的LR AUC: 0.64324
+[LibLinear]iter   1  #CD cycles 1
+iter   2  #CD cycles 1
+iter   3  #CD cycles 1
+iter   4  #CD cycles 1
+iter   5  #CD cycles 1
+iter   6  #CD cycles 1
+iter   7  #CD cycles 6
+iter   8  #CD cycles 3
+iter   9  #CD cycles 1
+iter  10  #CD cycles 25
+iter  11  #CD cycles 4
+iter  12  #CD cycles 1
+iter  13  #CD cycles 81
+iter  14  #CD cycles 10
+iter  15  #CD cycles 1
+iter  16  #CD cycles 110
+iter  17  #CD cycles 42
+iter  18  #CD cycles 2
+iter  19  #CD cycles 1
+WARNING: reaching max number of inner iterations
+iter  20  #CD cycles 1000
+iter  21  #CD cycles 503
+=========================
+optimization finished, #iter = 21
+Objective value = 7573.141336
+#nonzeros/#features = 393/798
+2018-05-22 03:30:02,906 INFO xgboost_lr.py[line:121] 基于Xgboost特征编码后的LR AUC: 0.68099
+2018-05-22 03:30:07,149 INFO xgboost_lr.py[line:133] start train lr
+[LibLinear]iter   1  #CD cycles 1
+iter   2  #CD cycles 1
+iter   3  #CD cycles 1
+iter   4  #CD cycles 3
+iter   5  #CD cycles 1
+iter   6  #CD cycles 1
+iter   7  #CD cycles 3
+iter   8  #CD cycles 3
+iter   9  #CD cycles 4
+iter  10  #CD cycles 3
+iter  11  #CD cycles 1
+iter  12  #CD cycles 6
+iter  13  #CD cycles 1
+iter  14  #CD cycles 64
+iter  15  #CD cycles 13
+iter  16  #CD cycles 1
+iter  17  #CD cycles 79
+iter  18  #CD cycles 17
+iter  19  #CD cycles 1
+iter  20  #CD cycles 82
+iter  21  #CD cycles 87
+iter  22  #CD cycles 137
+iter  23  #CD cycles 79
+iter  24  #CD cycles 7
+iter  25  #CD cycles 1
+iter  26  #CD cycles 777
+iter  27  #CD cycles 85
+iter  28  #CD cycles 132
+=========================
+optimization finished, #iter = 28
+Objective value = 7559.322507
+#nonzeros/#features = 405/807
+2018-05-22 03:43:42,804 INFO xgboost_lr.py[line:140] 基于组合特征的LR AUC: 0.68380
+2018-05-22 03:43:42,914 INFO xgboost_lr.py[line:213] end..
+
+
+
+
+/Users/Zealot/anaconda/bin/python /Users/Zealot/PycharmProjects/coupon_model/xgboost_lr/xgboost_lr.py
+2018-05-22 10:21:32,161 INFO xgboost_lr.py[line:204] start..
+2018-05-22 10:21:48,580 INFO xgboost_lr.py[line:176]
+
+2018-05-22 10:21:48,777 INFO xgboost_lr.py[line:177]                  id           uid            man           jian    is_new  \
+count  1.072920e+05  1.072920e+05  107292.000000  107292.000000  107292.0
+mean   2.371008e+07  4.406105e+09      30.717547       6.276321       0.0
+std    3.831578e+04  1.761465e+09     283.591830      35.559656       0.0
+min    2.363083e+07  2.423820e+07       0.000000       1.000000       0.0
+25%    2.367988e+07  2.674674e+09       5.000000       2.000000       0.0
+50%    2.370744e+07  5.247174e+09      10.000000       3.000000       0.0
+75%    2.373502e+07  5.948676e+09      15.000000       6.000000       0.0
+max    2.382812e+07  6.532487e+09   32000.000000    4200.000000       0.0
+
+       get_week_day
+count      107292.0
+mean            7.0
+std             0.0
+min             7.0
+25%             7.0
+50%             7.0
+75%             7.0
+max             7.0
+{0: 2440330, 1: 40343}
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/preprocessing/label.py:108: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+/Users/Zealot/PycharmProjects/coupon_model/xgboost_lr/xgboost_lr.py:194: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  train[feature] = le.transform(train[feature])
+/Users/Zealot/PycharmProjects/coupon_model/xgboost_lr/xgboost_lr.py:196: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  test[feature] = le.transform(test[feature])
+2018-05-22 10:22:01,099 INFO xgboost_lr.py[line:207] ['train x len: ', 2480673]
+2018-05-22 10:22:01,099 INFO xgboost_lr.py[line:208] ['test x len: ', 107292]
+2018-05-22 10:22:01,099 INFO xgboost_lr.py[line:209] xgboost..
+[0]	validation_0-auc:0.610922
+[1]	validation_0-auc:0.613695
+[2]	validation_0-auc:0.630057
+[3]	validation_0-auc:0.634725
+[4]	validation_0-auc:0.642272
+[5]	validation_0-auc:0.65914
+[6]	validation_0-auc:0.655827
+[7]	validation_0-auc:0.665272
+[8]	validation_0-auc:0.667084
+[9]	validation_0-auc:0.676661
+[10]	validation_0-auc:0.67347
+[11]	validation_0-auc:0.676995
+[12]	validation_0-auc:0.675888
+[13]	validation_0-auc:0.666305
+[14]	validation_0-auc:0.669172
+[15]	validation_0-auc:0.657715
+[16]	validation_0-auc:0.652352
+[17]	validation_0-auc:0.651886
+[18]	validation_0-auc:0.650906
+[19]	validation_0-auc:0.664236
+[20]	validation_0-auc:0.663183
+[21]	validation_0-auc:0.66991
+[22]	validation_0-auc:0.676078
+[23]	validation_0-auc:0.668118
+[24]	validation_0-auc:0.670999
+[25]	validation_0-auc:0.671376
+[26]	validation_0-auc:0.708119
+[27]	validation_0-auc:0.726351
+[28]	validation_0-auc:0.714227
+[29]	validation_0-auc:0.711784
+2018-05-22 10:22:45,876 INFO xgboost_lr.py[line:36] xgboost test auc: 0.71178
+2018-05-22 10:22:57,635 INFO xgboost_lr.py[line:58] Transform features genenrated by xgboost...
+2018-05-22 10:23:56,239 INFO xgboost_lr.py[line:76] Write xgboost learned features to file ...
+2018-05-22 10:26:21,020 INFO xgboost_lr.py[line:211] lr..
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/linear_model/logistic.py:719: UserWarning: lbfgs failed to converge. Increase the number of iterations.
+  warnings.warn("lbfgs failed to converge. Increase the number "
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:  1.0min finished
+2018-05-22 10:28:58,091 INFO xgboost_lr.py[line:112] 基于原有特征的LR AUC: 0.66481
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/linear_model/logistic.py:719: UserWarning: lbfgs failed to converge. Increase the number of iterations.
+  warnings.warn("lbfgs failed to converge. Increase the number "
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:  1.5min finished
+2018-05-22 10:30:27,557 INFO xgboost_lr.py[line:121] 基于Xgboost特征编码后的LR AUC: 0.65880
+2018-05-22 10:30:33,750 INFO xgboost_lr.py[line:133] start train lr
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/linear_model/logistic.py:719: UserWarning: lbfgs failed to converge. Increase the number of iterations.
+  warnings.warn("lbfgs failed to converge. Increase the number "
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:  2.3min finished
+2018-05-22 10:32:53,665 INFO xgboost_lr.py[line:140] 基于组合特征的LR AUC: 0.69576
+2018-05-22 10:32:53,825 INFO xgboost_lr.py[line:213] end..
+
+
+30棵树、get week day改成onehot
+2018-05-22 15:06:18,814 INFO xgboost_lr.py[line:36] xgboost test auc: 0.67698
+2018-05-22 15:06:34,041 INFO xgboost_lr.py[line:58] Transform features genenrated by xgboost...
+2018-05-22 15:07:28,574 INFO xgboost_lr.py[line:76] Write xgboost learned features to file ...
+2018-05-22 15:10:17,594 INFO xgboost_lr.py[line:215] lr..
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/linear_model/logistic.py:719: UserWarning: lbfgs failed to converge. Increase the number of iterations.
+  warnings.warn("lbfgs failed to converge. Increase the number "
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:  1.1min finished
+2018-05-22 15:13:12,809 INFO xgboost_lr.py[line:112] 基于原有特征的LR AUC: 0.67465
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/linear_model/logistic.py:719: UserWarning: lbfgs failed to converge. Increase the number of iterations.
+  warnings.warn("lbfgs failed to converge. Increase the number "
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:  1.6min finished
+2018-05-22 15:14:47,633 INFO xgboost_lr.py[line:121] 基于Xgboost特征编码后的LR AUC: 0.68499
+2018-05-22 15:14:53,765 INFO xgboost_lr.py[line:133] start train lr
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/linear_model/logistic.py:719: UserWarning: lbfgs failed to converge. Increase the number of iterations.
+  warnings.warn("lbfgs failed to converge. Increase the number "
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:  2.4min finished
+2018-05-22 15:17:22,272 INFO xgboost_lr.py[line:140] 基于组合特征的LR AUC: 0.67577
+2018-05-22 15:17:22,392 INFO xgboost_lr.py[line:217] end..
+
+50颗树
+基于组合特征的LR AUC: 0.69276
+
+70棵树，添加use week day特征
+2018-05-22 15:52:35,183 INFO xgboost_lr.py[line:36] xgboost test auc: 0.68153
+2018-05-22 15:52:59,458 INFO xgboost_lr.py[line:58] Transform features genenrated by xgboost...
+2018-05-22 15:55:25,058 INFO xgboost_lr.py[line:76] Write xgboost learned features to file ...
+2018-05-22 16:00:09,605 INFO xgboost_lr.py[line:215] lr..
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/linear_model/logistic.py:719: UserWarning: lbfgs failed to converge. Increase the number of iterations.
+  warnings.warn("lbfgs failed to converge. Increase the number "
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:  1.3min finished
+2018-05-22 16:05:40,723 INFO xgboost_lr.py[line:112] 基于原有特征的LR AUC: 0.84388
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:   52.7s finished
+2018-05-22 16:06:37,459 INFO xgboost_lr.py[line:121] 基于Xgboost特征编码后的LR AUC: 0.65706
+2018-05-22 16:06:55,471 INFO xgboost_lr.py[line:133] start train lr
+/Users/Zealot/anaconda/lib/python2.7/site-packages/sklearn/linear_model/logistic.py:719: UserWarning: lbfgs failed to converge. Increase the number of iterations.
+  warnings.warn("lbfgs failed to converge. Increase the number "
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:  4.3min finished
+2018-05-22 16:11:30,977 INFO xgboost_lr.py[line:140] 基于组合特征的LR AUC: 0.77876
+2018-05-22 16:11:31,166 INFO xgboost_lr.py[line:217] end..
