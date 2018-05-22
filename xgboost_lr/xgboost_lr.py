@@ -20,15 +20,15 @@ import utils as util
 def xgb_feature_encode(xgb_feature_libsvm,train_x,train_y,test_x,test_y):
 
     # 定义模型
-    xgboost = xgb.XGBClassifier(nthread=4, learning_rate=0.08,
-                            n_estimators=200, max_depth=5, gamma=0, subsample=0.9, colsample_bytree=0.5,verbose=0)
+    xgboost = xgb.XGBClassifier(nthread=4, learning_rate=0.15,
+                            n_estimators=70, max_depth=5, gamma=0, subsample=0.9, colsample_bytree=0.5,verbose=0)
     # 训练学习
     X_train = train_x
     y_train = train_y
     X_test = test_x
     y_test = test_y
     eval_set = [(X_test, y_test)]
-    xgboost.fit(X_train, y_train, eval_metric='auc',eval_set=eval_set,verbose=True)
+    xgboost.fit(X_train, y_train, eval_metric='auc', eval_set=eval_set,verbose=True)
 
     # 预测及AUC评测
     y_pred_test = xgboost.predict_proba(X_test)[:, 1]
@@ -100,34 +100,28 @@ def xgboost_lr_train(xgbfeaturefile,X_train_origin, y_train_origin, X_test_origi
     # X_train, X_test, y_train, y_test = train_test_split(X_xg_all, y_xg_all, test_size = 0.3, random_state = 42)
 
     # load 原始样本数据
-    # X_all, y_all = load_svmlight_file(origin_libsvm_file)
-    # X_train_origin, X_test_origin, y_train_origin, y_test_origin = train_test_split(X_all, y_all, test_size = 0.3, random_state = 42)
 
 
     # lr对原始特征样本模型训练
-    # lr = LogisticRegression(n_jobs=-1, C=0.1, penalty='l1')
-    # lr.fit(X_train_origin, y_train_origin)
-    # joblib.dump(lr, 'lr_orgin.m')
-    # # 预测及AUC评测
-    # y_pred_test = lr.predict_proba(X_test_origin)[:, 1]
-    # lr_test_auc = roc_auc_score(y_test_origin, y_pred_test)
-    # util.logger.info('基于原有特征的LR AUC: %.5f' % lr_test_auc)
+    lr = LogisticRegression(n_jobs=-1, C=0.1, penalty='l2',max_iter=200,verbose=2,solver='lbfgs')
+    lr.fit(X_train_origin, y_train_origin)
+    joblib.dump(lr, 'lr_orgin.m')
+    # 预测及AUC评测
+    y_pred_test = lr.predict_proba(X_test_origin)[:, 1]
+    lr_test_auc = roc_auc_score(y_test_origin, y_pred_test)
+    util.logger.info('基于原有特征的LR AUC: %.5f' % lr_test_auc)
 
     # lr对load xgboost特征编码后的样本模型训练
-    # lr = LogisticRegression(n_jobs=-1, C=0.1, penalty='l1')
-    # lr.fit(X_train, y_train,eval_set=eval_set,verbose=True)
-    # joblib.dump(lr, 'lr_xgb.m')
-    # # 预测及AUC评测
-    # y_pred_test = lr.predict_proba(X_test)[:, 1]
-    # lr_test_auc = roc_auc_score(y_test, y_pred_test)
-    # util.logger.info('基于Xgboost特征编码后的LR AUC: %.5f' % lr_test_auc)
+    lr = LogisticRegression(n_jobs=-1, C=0.1, penalty='l2',max_iter=200,verbose=2,solver='lbfgs')
+    lr.fit(X_train, y_train)
+    joblib.dump(lr, 'lr_xgb.m')
+    # 预测及AUC评测
+    y_pred_test = lr.predict_proba(X_test)[:, 1]
+    lr_test_auc = roc_auc_score(y_test, y_pred_test)
+    util.logger.info('基于Xgboost特征编码后的LR AUC: %.5f' % lr_test_auc)
 
     # 基于原始特征组合xgboost编码后的特征
-    util.logger.info(type(X_train_origin))
-    util.logger.info(type(X_train))
 
-    util.logger.info(X_train_origin.shape[0])
-    util.logger.info(X_train.shape[0])
     X_train_ext = hstack([X_train_origin, X_train])
     del (X_train)
     del (X_train_origin)
@@ -137,9 +131,8 @@ def xgboost_lr_train(xgbfeaturefile,X_train_origin, y_train_origin, X_test_origi
 
     # lr对组合后的新特征的样本进行模型训练
     util.logger.info("start train lr")
-    lr = LogisticRegression(n_jobs=-1, C=0.1, penalty='l1',verbose=True)
+    lr = LogisticRegression(n_jobs=-1, C=0.1, penalty='l2', max_iter=200,verbose=2,solver='lbfgs')
     lr.fit(X_train_ext, y_train)
-    # lr.fit(X_train_ext, y_train,eval_metric='auc',eval_set=eval_set,verbose=True)
     joblib.dump(lr, 'lr_ext.m')
     # 预测及AUC评测a
     y_pred_test = lr.predict_proba(X_test_ext)[:, 1]
@@ -168,11 +161,14 @@ def dataset():
     data = pd.merge(data, get_count, on='uid', how='left')
     data = pd.merge(data, use_count, on='uid', how='left')
     data = pd.merge(data, pay_info, on='uid', how='left')
-    data = data.fillna('0') # type: DataFrame.
+    data = data.fillna('-1') # type: DataFrame.
+    # print len(data[pd.isnull(data.use_week_day)])
+    # exit(0)
 
 
-    continuous_feature=['jian','get_count','use_count','pay_count','get_week_day','avg_pay_day','pay_amount']
-    one_hot_feature=['coupon_type']
+
+    continuous_feature=['jian','get_count','use_count','pay_count','avg_pay_day','pay_amount']
+    one_hot_feature=['coupon_type','get_week_day','use_week_day']
     train = data[data.create_time!='2018-04-21']
     test = data[data.create_time=='2018-04-21']
     train_x = data[data.create_time!='2018-04-21'][['man']]
@@ -181,6 +177,7 @@ def dataset():
     test_y = test.pop('label')
     test_y=list(test_y)
     util.logger.info("\n")
+    util.logger.info(train.describe())
     util.logger.info(test.describe())
 
     d = {}
@@ -214,7 +211,7 @@ if __name__ == '__main__':
     util.logger.info(["train x len: ",train_x.shape[0]])
     util.logger.info(["test x len: ",test_x.shape[0]])
     util.logger.info("xgboost..")
-    # xgb_feature_encode(xgb_feature_libsvm,train_x, train_y, test_x, test_y)
+    xgb_feature_encode(xgb_feature_libsvm,train_x, train_y, test_x, test_y)
     util.logger.info("lr..")
     xgboost_lr_train(xgb_feature_libsvm,train_x, train_y, test_x, test_y)
     util.logger.info("end..")
