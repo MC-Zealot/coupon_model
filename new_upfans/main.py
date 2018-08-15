@@ -13,8 +13,8 @@ def read_file():
     train = pd.read_csv(train_set_file)
     test = pd.read_csv(test_set_file)
 
-    # train['flag'] = 'train'
-    # test['flag'] = 'test'
+    train['flag'] = 'train'
+    test['flag'] = 'test'
     data = pd.concat([train, test])
     #定义列名
 
@@ -42,42 +42,27 @@ def read_file():
     #
     #     test_x = sparse.hstack((test_x, test_a))
     #     train_x = sparse.hstack((train_x, train_a))
-    train_y = train.pop('label')
-    test_y = test.pop('label')
-    return data
+    # train_y = train.pop('label')
+    # test_y = test.pop('label')
+    return train,test
 
 
-def dataDiscretize(dataSet):
-    m,n = np.shape(dataSet)    #获取数据集行列（样本数和特征数)
-    print "shape: "+str(np.shape(dataSet))
-    disMat = np.tile([0],np.shape(dataSet))  #初始化离散化数据集
+def dataDiscretize(train,test,k):
+    print "shape: "+str(np.shape(train))
     continuous_features = ['app_nf_ctr', 'blogger_recommend_ctr', 'follow_friends_ctr', 'relation_center_ctr',
                            'my_following_ctr', 'my_follower_ctr']
-    enc = feature_discretization()
-    # for i in range(n):    #由于最后一列为类别，因此遍历前n-1列，即遍历特征列
-    #     x = [l[i] for l in dataSet] #获取第i+1特征向量
-    #     print "x 10: " + str(x[0:100])
-    #     if i<=1:
-    #         continue
-    #     print "x type: " + str(type(x))
-    #
-    #     y = pd.cut(x, 10, labels=[0,1,2,3,4,5,6,7,8,9])   #调用cut函数，将特征离散化为10类，可根据自己需求更改离散化种类
-    #     for k in range(n):  #将离散化值传入离散化数据集
-    #         disMat[k][i] = y[k]
-    i = 0
-    print "n: "+ str(n)
-    for feature in continuous_features:
-        x = dataSet[feature].values.reshape(-1, 1)
-        # print len(x)
-        y = pd.cut(x, 10, labels=[0,1,2,3,4,5,6,7,8,9])
-        print y.categories
-        print y.codes
 
-        for k in range(n - 1):  #将离散化值传入离散化数据集
-            # print i,y
-            disMat[k][i] = y.codes[k]
-        i+=1
-    return disMat
+    train_x = train[['flag']]
+    test_x = test[['flag']]
+    for feature in continuous_features:
+        x = train[feature].values.reshape(-1, 1)
+        x2 = test[feature].values.reshape(-1, 1)
+        y = my_fit(x,k)
+        y2 = my_fit(x2,k)
+        train_x = sparse.hstack((train_x, y))
+        test_x = sparse.hstack((test_x, y2))
+
+    return train_x,test_x
 
 
 def LGB_test(train_x, train_y, test_x, test_y):
@@ -133,7 +118,6 @@ if __name__ == '__main__':
     print "bins: " + str(bins)
     bins = my_fit(array, n)
     print transform(array,bins)
-    # for x in array:
-    #     print binary_search_category(bins, x),
-    # print dataDiscretize(read_file())
+    train,test = read_file()
+    print dataDiscretize(train, test, 10)
 # model = LGB_test(train_x, train_y, test_x)
