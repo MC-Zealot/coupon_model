@@ -113,7 +113,8 @@ def binary_search_category(bins, target):
             # print "target: " + str(target) +", mid:" + str(mid)
             mid -= 1
             return max(mid, 0)
-
+    if bins[mid] > target:
+        mid -= 1
     return mid
 
 if __name__ == '__main__':
