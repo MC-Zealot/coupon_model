@@ -102,16 +102,17 @@ def my_fit(array,n):
 def binary_search_category(bins, target):
     low = 0
     high = len(bins) - 1
-    count = 0
     while low <= high:
-        count += 1
         mid = (low + high) / 2
         if bins[mid] > target:
             high = mid - 1
         elif bins[mid] < target:
             low = mid + 1
         else:
-            return mid
+            # print ""
+            # print "target: " + str(target) +", mid:" + str(mid)
+            mid -= 1
+            return max(mid, 0)
 
     return mid
 
@@ -125,6 +126,6 @@ if __name__ == '__main__':
     print "bins: " + str(bins)
     bins = my_fit(array,n)
     for x in array:
-        print  binary_search_category(bins,x),
+        print binary_search_category(bins,x),
     # print dataDiscretize(read_file())
 # model = LGB_test(train_x, train_y, test_x)
