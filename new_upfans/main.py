@@ -125,6 +125,6 @@ if __name__ == '__main__':
     print "bins: " + str(bins)
     bins = my_fit(array,n)
     for x in array:
-        print binary_search_category(bins,x),
+        print  binary_search_category(bins,x),
     # print dataDiscretize(read_file())
 # model = LGB_test(train_x, train_y, test_x)
