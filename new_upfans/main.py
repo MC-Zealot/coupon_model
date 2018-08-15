@@ -52,17 +52,19 @@ def dataDiscretize(train,test,k):
     continuous_features = ['app_nf_ctr', 'blogger_recommend_ctr', 'follow_friends_ctr', 'relation_center_ctr',
                            'my_following_ctr', 'my_follower_ctr']
 
-    train_x = train[['flag']]
+    train_x1 = train[['flag']]
     test_x = test[['flag']]
     for feature in continuous_features:
         x = train[feature].values.reshape(-1, 1)
         x2 = test[feature].values.reshape(-1, 1)
         y = my_fit(x,k)
         y2 = my_fit(x2,k)
-        train_x = sparse.hstack((train_x, y))
+        print pd.shape(train_x1)
+        print pd.shape(y)
+        train_x1 = sparse.hstack((train_x1, y))
         test_x = sparse.hstack((test_x, y2))
 
-    return train_x,test_x
+    return train_x1,test_x
 
 
 def LGB_test(train_x, train_y, test_x, test_y):
@@ -109,15 +111,15 @@ def transform(input_array, bins_array):
 
 
 if __name__ == '__main__':
-    array = [3, 60, 43, 100, 52, 36, 37, 0, 80, 1000]
-    n = 5
-    print array
-    fac, bins = pd.qcut(array, n, labels=[0, 1, 2, 3, 4], retbins=True)
-    # print "fac: " + str(fac.describe())
-    print "fac codes: " + str(fac.codes)
-    print "bins: " + str(bins)
-    bins = my_fit(array, n)
-    print transform(array,bins)
+    # array = [3, 60, 43, 100, 52, 36, 37, 0, 80, 1000]
+    # n = 5
+    # print array
+    # fac, bins = pd.qcut(array, n, labels=[0, 1, 2, 3, 4], retbins=True)
+    # # print "fac: " + str(fac.describe())
+    # print "fac codes: " + str(fac.codes)
+    # print "bins: " + str(bins)
+    # bins = my_fit(array, n)
+    # print transform(array,bins)
     train,test = read_file()
     print dataDiscretize(train, test, 10)
 # model = LGB_test(train_x, train_y, test_x)
